@@ -19,14 +19,3 @@ This project implements a multi-stage AI Agent designed to transform raw lead da
 * **Phase 3: Hyper-Personalization & Sync**
     * **Contextual Generation:** Creates 1:1 email drafts using specific insights gathered during Phase 2.
     * **Master Record Update:** Syncs all findings, qualification scores, and drafts back to the Google Sheet.
-
----
-
-## 🔧 Advanced Error Handling
-A core feature of this repository is the ability to handle **Axios/HTTP 400 errors** gracefully. Standard n8n nodes often return a "triple-encoded" string when a request fails; this workflow includes custom logic to "unwrap" that string into human-readable logs.
-
-**The Technical Solution:**
-The workflow uses a custom expression to strip the `400 - ` prefix and parse the internal JSON body:
-
-```javascript
-{{ JSON.parse($json.error.message.substring($json.error.message.indexOf('{'))).readableMessage }}
